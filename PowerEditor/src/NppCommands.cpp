@@ -2098,18 +2098,38 @@ void Notepad_plus::command(int id)
 			wsTabConvert(space2TabAll);
 			break;
 
-		case IDM_EDIT_SETREADONLY:
+		case IDM_EDIT_TOGGLEREADONLY:
 		{
 			Buffer * buf = _pEditView->getCurrentBuffer();
 			buf->setUserReadOnly(!buf->getUserReadOnly());
 		}
 		break;
 
-		case IDM_EDIT_CLEARREADONLY:
+		case IDM_EDIT_TOGGLESYSTEMREADONLY:
 		{
-			Buffer * buf = _pEditView->getCurrentBuffer();
-			removeReadOnlyFlagFromFileAttributes(buf->getFullPathName());
-			buf->setFileReadOnly(false);
+			Buffer* buf = _pEditView->getCurrentBuffer();
+			bool isSysReadOnly = false;
+			if (toggleReadOnlyFlagFromFileAttributes(buf->getFullPathName(), isSysReadOnly))
+			{
+				buf->setFileReadOnly(isSysReadOnly);
+			}
+			else
+			{
+				if (_isAdministrator)
+				{
+					MessageBox(_pPublicInterface->getHSelf(), GetLastErrorAsString(GetLastError()).c_str(),	L"Changing file read-only attribute failed", MB_OK | MB_ICONWARNING);
+				}
+				else
+				{
+					// Not in admin mode, and file might be protected. So we can't change the file attributes.
+					_nativeLangSpeaker.messageBox("NoAdminRight2ChangeReadOnlyFileAttribute",
+						_pPublicInterface->getHSelf(),
+						L"Please run Notepad++ as administrator to change the file attributes.",
+						L"Changing file read-only attribute failed",
+						MB_OK | MB_ICONWARNING);
+				}
+
+			}
 		}
 		break;
 
@@ -4161,11 +4181,11 @@ void Notepad_plus::command(int id)
 			case IDM_EDIT_TAB2SW:
 			case IDM_EDIT_SW2TAB_ALL:
 			case IDM_EDIT_SW2TAB_LEADING:
-			case IDM_EDIT_SETREADONLY :
+			case IDM_EDIT_TOGGLEREADONLY :
 			case IDM_EDIT_FULLPATHTOCLIP :
 			case IDM_EDIT_FILENAMETOCLIP :
 			case IDM_EDIT_CURRENTDIRTOCLIP :
-			case IDM_EDIT_CLEARREADONLY :
+			case IDM_EDIT_TOGGLESYSTEMREADONLY :
 			case IDM_EDIT_RTL :
 			case IDM_EDIT_LTR :
 			case IDM_EDIT_BEGINENDSELECT:
