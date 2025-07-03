@@ -52,9 +52,10 @@ void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn
 		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
 	if ((lStatus == ERROR_SUCCESS) && (dwSubkeysCount > 0))
 	{
+		DWORD dwAdapterSubkeysFound = 0;
 		for (DWORD i = 0; i < dwSubkeysCount; ++i)
 		{
-			if (i >= maxAdaptersIn)
+			if (dwAdapterSubkeysFound >= maxAdaptersIn)
 			{
 				strOut += L"\n    - warning, search has been limited to maximum number of adapter records: "
 					+ std::to_wstring(maxAdaptersIn);
@@ -77,6 +78,7 @@ void AppendDisplayAdaptersInfo(wstring& strOut, const unsigned int maxAdaptersIn
 				if (::RegQueryValueExW(hkAdapterSubKey, L"DriverDesc", nullptr, &dwType, (LPBYTE)wszKeyVal, &dwSize)
 					== ERROR_SUCCESS)
 				{
+					dwAdapterSubkeysFound++;
 					strOut += strAdapterNo + L": Description - ";
 					strOut += wszKeyVal;
 				}
@@ -135,10 +137,10 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			//_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v844-happy-users-edition/";
             //_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/news/v86-20thyearanniversary";
             //_pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v87-about-taiwan/");
+			//_pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v881-we-are-with-ukraine/");
             
 			_pageLink.init(_hInst, _hSelf);
-            //_pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/");
-			_pageLink.create(::GetDlgItem(_hSelf, IDC_AUTHOR_NAME), L"https://notepad-plus-plus.org/news/v881-we-are-with-ukraine/");
+            _pageLink.create(::GetDlgItem(_hSelf, IDC_HOME_ADDR), L"https://notepad-plus-plus.org/");
 
 			return TRUE;
 		}
@@ -184,8 +186,8 @@ intptr_t CALLBACK AboutDlg::run_dlgProc(UINT message, WPARAM wParam, LPARAM lPar
 			const int iconSize = _dpiManager.scale(80);
 			if (_hIcon == nullptr)
 			{
-				//DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(NppDarkMode::isEnabled() ? IDI_CHAMELEON_DM : IDI_CHAMELEON), iconSize, iconSize, &_hIcon);
-				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_WITHUKRAINE), iconSize, iconSize, &_hIcon);
+				DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(NppDarkMode::isEnabled() ? IDI_CHAMELEON_DM : IDI_CHAMELEON), iconSize, iconSize, &_hIcon);
+				//DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(IDI_WITHUKRAINE), iconSize, iconSize, &_hIcon);
 				//DPIManagerV2::loadIcon(_hInst, MAKEINTRESOURCE(NppDarkMode::isEnabled() ? IDI_TAIWANSSOVEREIGNTY_DM : IDI_TAIWANSSOVEREIGNTY), iconSize, iconSize, &_hIcon);
 			}
 
