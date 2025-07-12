@@ -67,8 +67,9 @@ private:
 
 	// Code signing certificate
 	std::wstring _signer_display_name = L"Notepad++";
-	std::wstring _signer_subject = L"C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\"";
-	std::wstring _signer_key_id = L"E687332916D6B681FE28C5EF423CEE259D3953B9";
+	std::wstring _signer_subject = L"C=FR, S=Ile-de-France, L=Saint Cloud, O=\"Notepad++\", CN=\"Notepad++\", E=don.h@free.fr";
+	std::wstring _signer_key_id = L"7B4D26B77F8269B987AC3E8EBC3899E1A4176DFA"; //=> Should be UPPERCASE
+
 	bool _doCheckRevocation = false;
 	bool _doCheckChainOfTrust = false;
 

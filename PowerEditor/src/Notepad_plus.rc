@@ -64,7 +64,7 @@ IDI_CHAMELEON_DM                ICON      "icons/dark/about/chameleon.ico"
 //IDI_SAMESEXMARRIAGE           ICON      "icons/same-sexMarriageTaiwan.ico"
 //IDI_TAIWANSSOVEREIGNTY        ICON      "icons/standard/about/logo_taiwan-grey.ico"
 //IDI_TAIWANSSOVEREIGNTY_DM     ICON      "icons/dark/about/logo_taiwan-grey.ico"
-IDI_WITHUKRAINE                 ICON      "icons/standard/about/withUkraine.ico"
+//IDI_WITHUKRAINE               ICON      "icons/standard/about/withUkraine.ico"
 IDI_ICONABSENT                  ICON      "icons/iconAbsent.ico"
 
 //
@@ -284,6 +284,9 @@ IDI_UNSAVED_ALT_ICON            ICON      "icons/standard/tabbar/unsaved_alt.ico
 IDI_READONLY_ICON               ICON      "icons/standard/tabbar/readonly.ico"
 IDI_READONLY_DM_ICON            ICON      "icons/dark/tabbar/readonly.ico"
 IDI_READONLY_ALT_ICON           ICON      "icons/standard/tabbar/readonly_alt.ico"
+IDI_READONLYSYS_ICON            ICON      "icons/standard/tabbar/readonly_sys.ico"
+IDI_READONLYSYS_DM_ICON         ICON      "icons/dark/tabbar/readonly_sys.ico"
+IDI_READONLYSYS_ALT_ICON        ICON      "icons/standard/tabbar/readonly_sys_alt.ico"
 IDI_MONITORING_ICON             ICON      "icons/standard/tabbar/monitoring.ico"
 IDI_MONITORING_DM_ICON          ICON      "icons/dark/tabbar/monitoring.ico"
 
@@ -628,8 +631,8 @@ BEGIN
         MENUITEM "Character &Panel",         IDM_EDIT_CHAR_PANEL
         MENUITEM "Clipboard &History",       IDM_EDIT_CLIPBOARDHISTORY_PANEL
         MENUITEM SEPARATOR
-        MENUITEM "&Set Read-Only",           IDM_EDIT_SETREADONLY
-        MENUITEM "Clear Read-Only Flag",     IDM_EDIT_CLEARREADONLY
+        MENUITEM "Read-Only in Notepad++",            IDM_EDIT_TOGGLEREADONLY
+        MENUITEM "Read-Only Attribute in Windows",    IDM_EDIT_TOGGLESYSTEMREADONLY
     END
 
     POPUP "&Search"
@@ -1387,9 +1390,9 @@ BEGIN
 	//LTEXT           "Support Taiwan's Sovereignty", IDC_AUTHOR_NAME, 85, 38, 120, 10
 	//LTEXT           "支持台灣獨立", IDC_AUTHOR_NAME, 85, 38, 120, 10
 	//LTEXT           "Support Taiwan's return to the UN", IDC_AUTHOR_NAME, 85, 38, 130, 10
-	LTEXT           "We are with Ukraine", IDC_AUTHOR_NAME, 85, 38, 130, 10
-    //LTEXT           "Home:",IDC_STATIC,21,58,47,8
-    //LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,56,126,10
+	//LTEXT           "We are with Ukraine", IDC_AUTHOR_NAME, 85, 38, 130, 10
+    LTEXT           "Home:",IDC_STATIC,21,58,47,8
+    LTEXT           "https://notepad-plus-plus.org/",IDC_HOME_ADDR,50,56,126,10
     GROUPBOX        "GNU General Public Licence",IDC_STATIC,20,75,230,138,BS_CENTER
     DEFPUSHBUTTON   "OK",IDOK,110,220,50,14
     // IDC_LICENCE_EDIT should be the last line, don't know why
